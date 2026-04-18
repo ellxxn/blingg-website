@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blingg.id</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f4ef;
+      color: #222;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      background: #f7f4ef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 50px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .nav-left a,
+    .nav-right a {
+      color: #3a2a22;
+      transition: 0.3s;
+    }
+
+    .nav-left a:hover,
+    .nav-right a:hover {
+      color: #b38b2d;
+    }
+
+    .nav-logo img {
+      width: 220px;
+      height: auto;
+    }
+
+    /* HERO SLIDER */
+    .hero-slider {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  overflow: hidden;
+}
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      animation: slideBanner 12s infinite;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      flex: 0 0 100%;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px;
+    }
+
+    .overlay-content {
+      max-width: 560px;
+      color: #fff;
+    }
+
+    .overlay-logo {
+      width: 160px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.15));
+    }
+
+    .overlay-content h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 58px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .overlay-content p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      color: #f1e7db;
+      max-width: 520px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: #f7f4ef;
+      color: #3d281e;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+      background: #d8c1a0;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    @keyframes slideBanner {
+      0%, 28% {
+        transform: translateX(0);
+      }
+      33%, 61% {
+        transform: translateX(-100%);
+      }
+      66%, 94% {
+        transform: translateX(-200%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      text-align: center;
+      padding: 70px 20px 20px;
+    }
+
+    .section-title h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 38px;
+      color: #3a2a22;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #7b6a60;
+      font-size: 15px;
+    }
+
+    /* PRODUCTS */
+    .products-section {
+      padding: 30px 50px 80px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .product {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .product img {
+      width: 100%;
+      height: 320px;
+      object-fit: contain;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      background: #faf8f5;
+    }
+
+    .product h3 {
+      font-size: 20px;
+      margin-bottom: 14px;
+      color: #2e1d16;
+    }
+
+    .old-price {
+      font-size: 16px;
+      color: #8d837d;
+      text-decoration: line-through;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7a1f16;
+      margin-bottom: 18px;
+    }
+
+    .product-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #9cb4ca;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background: #7f9bb6;
+    }
+
+    .btn-secondary {
+      background: #f2ece4;
+      color: #4a2a1d;
+      border: 1px solid #e1d7cc;
+    }
+
+    .btn-secondary:hover {
+      background: #e8dfd5;
+    }
+
+    /* INFO */
+    .info-strip {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      padding: 0 30px;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, #24130d, #4b2b1e);
+      color: #fff;
+      border-radius: 24px;
+      padding: 45px;
+      text-align: center;
+    }
+
+    .info-box h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .info-box p {
+      font-size: 16px;
+      color: #eadccd;
+      line-height: 1.7;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #1f120d;
+      color: #f2e7dc;
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-left,
+      .nav-right {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-slider {
+        height: 70vh;
+      }
+
+      .overlay {
+        padding: 30px;
+      }
+
+      .overlay-content h1 {
+        font-size: 42px;
+      }
+
+      .overlay-content p {
+        font-size: 16px;
+      }
+
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-logo img {
+        width: 170px;
+      }
+
+      .hero-slider {
+        height: 60vh;
+      }
+
+      .overlay-logo {
+        width: 120px;
+      }
+
+      .overlay-content h1 {
+        font-size: 30px;
+      }
+
+      .overlay-content p {
+        font-size: 14px;
+      }
+
+      .products-section {
+        padding: 25px 18px 60px;
+      }
+
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        padding-top: 45px;
+      }
+
+      .section-title h2 {
+        font-size: 30px;
+      }
+
+      .info-box {
+        padding: 30px 20px;
+      }
+
+      .info-box h3 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="nav-left">
+      <a href="#collection">SHOP</a>
+      <a href="#collection">GIFT</a>
+      <a href="#about">ABOUT</a>
+      <a href="#footer">CONTACT</a>
+    </nav>
+
+    <div class="nav-logo">
+      <img src="logo.png" alt="Blingg.id Logo">
+    </div>
+
+    <nav class="nav-right">
+      <a href="#collection">SEARCH</a>
+      <a href="#collection">LOGIN</a>
+      <a href="#collection">CART</a>
+    </nav>
+  </header>
+
+  <section class="hero-slider">
+    <div class="slides">
+
+      <div class="slide">
+        <img src="gelang1.png" alt="Banner 1">
+        <div class="overlay">
+          <div class="overlay-content">
+            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
+            <h1>Luxury Jewelry<br>for Every Moment</h1>
+            <p>Temukan koleksi perhiasan elegan dengan sentuhan modern untuk melengkapi gayamu.</p>
+            <a href="#collection" class="hero-btn">EXPLORE COLLECTION</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="gelang2.png" alt="Banner 2">
+        <div class="overlay">
+          <div class="overlay-content">
+            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
+            <h1>Elegant Details,<br>Timeless Beauty</h1>
+            <p>Perhiasan yang dibuat untuk memberi kesan mewah, simple, dan mudah dipadukan setiap hari.</p>
+            <a href="#collection" class="hero-btn">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="gelang3.png" alt="Banner 3">
+        <div class="overlay">
+          <div class="overlay-content">
+            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
+            <h1>Crafted to Shine<br>With You</h1>
+            <p>Pilih koleksi favoritmu dan buat setiap penampilan terasa lebih spesial bersama Blingg.id.</p>
+            <a href="#collection" class="hero-btn">DISCOVER MORE</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </section>
+
+  <section class="section-title" id="collection">
+    <h2>Our Collection</h2>
+    <p>Handpicked pieces for a refined and timeless style.</p>
+  </section>
+
+  <section class="products-section">
+    <div class="container">
+
+      <div class="product">
+        <img src="gelang1.png" alt="Gelang Lepidolite">
+        <h3>Gelang Lepidolite</h3>
+        <div class="old-price">Rp149.000</div>
+        <div class="price">Rp118.000</div>
+        <div class="product-buttons">
+          <a href="https://wa.me/6280000000000?text=Halo%20saya%20ingin%20order%20Gelang%20Lepidolite" class="btn-primary" target="_blank">Order Sekarang</a>
+          <a href="#" class="btn-secondary">Product Info</a>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="gelang2.png" alt="Gelang Pink Red">
+        <h3>Gelang Pink Red</h3>
+        <div class="old-price">Rp69.000</div>
+        <div class="price">Rp40.000</div>
+        <div class="product-buttons">
+          <a href="https://wa.me/6280000000000?text=Halo%20saya%20ingin%20order%20Gelang%20Pink%20Red" class="btn-primary" target="_blank">Order Sekarang</a>
+          <a href="#" class="btn-secondary">Product Info</a>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="gelang3.png" alt="Gelang Black Gold">
+        <h3>Gelang Black Gold</h3>
+        <div class="old-price">Rp79.000</div>
+        <div class="price">Rp50.000</div>
+        <div class="product-buttons">
+          <a href="https://wa.me/6280000000000?text=Halo%20saya%20ingin%20order%20Gelang%20Black%20Gold" class="btn-primary" target="_blank">Order Sekarang</a>
+          <a href="#" class="btn-secondary">Product Info</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="info-strip" id="about">
+    <div class="info-box">
+      <h3>Blingg.id</h3>
+      <p>
+        Blingg.id hadir untuk menghadirkan perhiasan yang cantik, modern, dan mudah dipadukan untuk berbagai gaya.
+        Setiap koleksi dipilih untuk memberi sentuhan elegan yang simple namun tetap berkesan.
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer">
+    © 2026 Blingg.id — All Rights Reserved
+  </footer>
+
+</body>
+</html>
