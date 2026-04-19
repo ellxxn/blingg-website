@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blingg.id</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Online Shop Catalog with Cart</title>
   <style>
+    /* Reset & basic */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f4ef;
-      color: #222;
+      font-family: 'Times New Roman', serif;
+      color: #3f2c1d;
+      background: #fffaf0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     a {
@@ -27,519 +27,834 @@
       color: inherit;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    button {
+      cursor: pointer;
     }
 
-    /* NAVBAR */
-    .navbar {
-      width: 100%;
-      background: #f7f4ef;
+    /* Header */
+    header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 18px 50px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 15px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      background: white;
+      z-index: 1100;
     }
 
-    .nav-left,
-    .nav-right {
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    nav {
+      margin-left: auto;
+    }
+
+    ul.nav-menu {
+      list-style: none;
       display: flex;
-      gap: 28px;
+      gap: 25px;
+      font-weight: bold;
       align-items: center;
-      font-size: 13px;
-      letter-spacing: 1px;
     }
 
-    .nav-left a,
-    .nav-right a {
-      color: #3a2a22;
-      transition: 0.3s;
-    }
-
-    .nav-left a:hover,
-    .nav-right a:hover {
-      color: #b38b2d;
-    }
-
-    .nav-logo img {
-      width: 220px;
-      height: auto;
-    }
-
-    /* HERO SLIDER */
-    .hero-slider {
-  position: relative;
-  width: 100%;
-  height: 550px;
-  overflow: hidden;
-}
-
-    .slides {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      animation: slideBanner 12s infinite;
-    }
-
-    .slide {
-      width: 100%;
-      height: 100%;
-      flex: 0 0 100%;
+    ul.nav-menu>li {
       position: relative;
     }
 
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    ul.nav-menu>li>a {
+      padding: 8px 6px;
+      transition: color 0.3s;
     }
 
-    .overlay {
+    ul.nav-menu>li>a:hover {
+      color: #A0522D;
+    }
+
+    /* Dropdown Menu */
+    ul.dropdown {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.15));
+      top: 35px;
+      left: 0;
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      list-style: none;
+      width: 140px;
+      z-index: 1110;
+    }
+
+    ul.dropdown li a {
+      padding: 8px 12px;
+      display: block;
+      color: #3f2c1d;
+    }
+
+    ul.dropdown li a:hover {
+      background: #f0e6d2;
+      color: #A0522D;
+    }
+
+    ul.nav-menu>li:hover ul.dropdown {
+      display: block;
+    }
+
+    /* Banner Slider */
+    .slider {
+      max-width: 1200px;
+      margin: 20px auto 40px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+
+    .slides img {
+      width: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .slider-buttons {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      pointer-events: none;
+    }
+
+    .slider-buttons button {
+      pointer-events: all;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      color: #3f2c1d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slider-indicators {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .slider-indicators button {
+      border: none;
+      background: #c4b292;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+
+    .slider-indicators button.active {
+      background: #3f2c1d;
+      opacity: 1;
+    }
+
+    /* Products Section */
+    section.products {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    section.products h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #3f2c1d;
+      margin-bottom: 20px;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .product-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgb(0 0 0 / 0.08);
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-item img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      object-fit: contain;
+      max-height: 180px;
+    }
+
+    .product-name {
+      font-weight: 700;
+      font-size: 18px;
+      color: #331f08;
+      margin-bottom: 8px;
+      min-height: 48px;
+    }
+
+    .price-old {
+      font-size: 14px;
+      color: #a96b5d;
+      text-decoration: line-through;
+      margin-right: 10px;
+    }
+
+    .price-new {
+      font-weight: 900;
+      color: #cc2200;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .order-btn,
+    .cart-btn {
+      background: #a96b5d;
+      border: none;
+      color: white;
+      padding: 9px 18px;
+      font-weight: bold;
+      font-size: 15px;
+      border-radius: 25px;
+      transition: background 0.3s;
+      margin-top: auto;
+    }
+
+    .order-btn:hover,
+    .cart-btn:hover {
+      background: #7c4a3a;
+    }
+
+    /* Cart Sidebar */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100vh;
+      background: #fffaf0;
+      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+      overflow-x: hidden;
+      transition: 0.4s;
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-overlay.open {
+      width: 350px;
+      min-width: 300px;
+    }
+
+    .cart-header {
+      padding: 18px 25px;
+      border-bottom: 1px solid #ddd3c6;
+      font-weight: bold;
+      font-size: 20px;
+      color: #3f2c1d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-close-btn {
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: #3f2c1d;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .cart-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px 25px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      font-style: italic;
+      color: #a96b5d;
+      margin-top: 30px;
+    }
+
+    .cart-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd3c6;
+    }
+
+    .cart-item img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      color: #331f08;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-qty {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      padding: 60px;
-    }
-
-    .overlay-content {
-      max-width: 560px;
-      color: #fff;
-    }
-
-    .overlay-logo {
-      width: 160px;
-      margin-bottom: 24px;
-      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.15));
-    }
-
-    .overlay-content h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 58px;
-      line-height: 1.1;
-      margin-bottom: 18px;
-    }
-
-    .overlay-content p {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-      color: #f1e7db;
-      max-width: 520px;
-    }
-
-    .hero-btn {
-      display: inline-block;
-      background: #f7f4ef;
-      color: #3d281e;
-      padding: 14px 28px;
-      border-radius: 30px;
+      gap: 6px;
       font-size: 14px;
+    }
+
+    .qty-btn {
+      padding: 2px 8px;
+      border: 1px solid #a96b5d;
+      border-radius: 4px;
+      background: #f8f3ea;
+      color: #a96b5d;
       font-weight: bold;
-      letter-spacing: 1px;
-      transition: 0.3s;
+      user-select: none;
+      transition: background 0.2s;
     }
 
-    .hero-btn:hover {
-      background: #d8c1a0;
+    .qty-btn:hover {
+      background: #a96b5d;
+      color: #fffaf0;
+      cursor: pointer;
     }
 
-    .dots {
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 20;
+    .cart-item-price {
+      font-weight: 900;
+      color: #cc2200;
+      font-size: 16px;
+      margin-top: 6px;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
+    .cart-item-remove {
+      font-size: 20px;
+      cursor: pointer;
+      color: #cc2200;
+      align-self: flex-start;
+      user-select: none;
     }
 
-    @keyframes slideBanner {
-      0%, 28% {
-        transform: translateX(0);
-      }
-      33%, 61% {
-        transform: translateX(-100%);
-      }
-      66%, 94% {
-        transform: translateX(-200%);
-      }
-      100% {
-        transform: translateX(0);
-      }
+    /* Cart footer */
+    .cart-footer {
+      border-top: 1px solid #ddd3c6;
+      padding: 15px 25px;
+      background: #f5efe7;
     }
 
-    /* SECTION TITLE */
-    .section-title {
-      text-align: center;
-      padding: 70px 20px 20px;
-    }
-
-    .section-title h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 38px;
-      color: #3a2a22;
+    .cart-total {
+      font-weight: 900;
+      font-size: 18px;
+      color: #3f2c1d;
       margin-bottom: 10px;
     }
 
-    .section-title p {
-      color: #7b6a60;
-      font-size: 15px;
-    }
-
-    /* PRODUCTS */
-    .products-section {
-      padding: 30px 50px 80px;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .product {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-    }
-
-    .product:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    .product img {
+    .checkout-btn {
+      background: #a96b5d;
+      border: none;
       width: 100%;
-      height: 320px;
-      object-fit: contain;
-      margin-bottom: 18px;
-      border-radius: 12px;
-      background: #faf8f5;
-    }
-
-    .product h3 {
-      font-size: 20px;
-      margin-bottom: 14px;
-      color: #2e1d16;
-    }
-
-    .old-price {
-      font-size: 16px;
-      color: #8d837d;
-      text-decoration: line-through;
-      margin-bottom: 8px;
-    }
-
-    .price {
-      font-size: 20px;
+      color: white;
+      padding: 12px;
       font-weight: bold;
-      color: #7a1f16;
-      margin-bottom: 18px;
+      font-size: 17px;
+      border-radius: 25px;
+      transition: background 0.3s;
     }
 
-    .product-buttons {
+    .checkout-btn:hover {
+      background: #7c4a3a;
+    }
+
+    /* Cart Icon */
+    .cart-icon {
+      position: relative;
+      font-size: 22px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -7px;
+      right: -10px;
+      background: #cc2200;
+      color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 18px;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
     }
 
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 13px 18px;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-
-    .btn-primary {
-      background: #9cb4ca;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .btn-primary:hover {
-      background: #7f9bb6;
-    }
-
-    .btn-secondary {
-      background: #f2ece4;
-      color: #4a2a1d;
-      border: 1px solid #e1d7cc;
-    }
-
-    .btn-secondary:hover {
-      background: #e8dfd5;
-    }
-
-    /* INFO */
-    .info-strip {
-      max-width: 1200px;
-      margin: 0 auto 80px;
-      padding: 0 30px;
-    }
-
-    .info-box {
-      background: linear-gradient(135deg, #24130d, #4b2b1e);
-      color: #fff;
-      border-radius: 24px;
-      padding: 45px;
-      text-align: center;
-    }
-
-    .info-box h3 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 34px;
-      margin-bottom: 14px;
-    }
-
-    .info-box p {
-      font-size: 16px;
-      color: #eadccd;
-      line-height: 1.7;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    /* FOOTER */
-    .footer {
-      background: #1f120d;
-      color: #f2e7dc;
-      text-align: center;
-      padding: 28px 20px;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 992px) {
-      .navbar {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .nav-left,
-      .nav-right {
-        gap: 16px;
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
         flex-wrap: wrap;
+      }
+
+      nav {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      ul.nav-menu {
         justify-content: center;
-      }
-
-      .hero-slider {
-        height: 70vh;
-      }
-
-      .overlay {
-        padding: 30px;
-      }
-
-      .overlay-content h1 {
-        font-size: 42px;
-      }
-
-      .overlay-content p {
-        font-size: 16px;
-      }
-
-      .container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav-logo img {
-        width: 170px;
-      }
-
-      .hero-slider {
-        height: 60vh;
-      }
-
-      .overlay-logo {
-        width: 120px;
-      }
-
-      .overlay-content h1 {
-        font-size: 30px;
-      }
-
-      .overlay-content p {
+        gap: 15px;
         font-size: 14px;
       }
 
-      .products-section {
-        padding: 25px 18px 60px;
-      }
-
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title {
-        padding-top: 45px;
-      }
-
-      .section-title h2 {
-        font-size: 30px;
-      }
-
-      .info-box {
-        padding: 30px 20px;
-      }
-
-      .info-box h3 {
-        font-size: 28px;
+      .cart-overlay.open {
+        width: 100%;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <header class="navbar">
-    <nav class="nav-left">
-      <a href="#collection">SHOP</a>
-      <a href="#collection">GIFT</a>
-      <a href="#about">ABOUT</a>
-      <a href="#footer">CONTACT</a>
-    </nav>
-
-    <div class="nav-logo">
-      <img src="logo.png" alt="Blingg.id Logo">
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
     </div>
-
-    <nav class="nav-right">
-      <a href="#collection">SEARCH</a>
-      <a href="#collection">LOGIN</a>
-      <a href="#collection">CART</a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#" class="category-menu" data-category="all">Shop</a>
+          <ul class="dropdown">
+            <li><a href="#" class="category-menu" data-category="ring">Ring</a></li>
+            <li><a href="#" class="category-menu" data-category="necklace">Necklace</a></li>
+            <li><a href="#" class="category-menu" data-category="earrings">Earrings</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Gift</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li>
+          <div class="cart-icon" id="cartIcon" aria-label="Open Cart" title="Keranjang Belanja" role="button" tabindex="0">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <section class="hero-slider">
-    <div class="slides">
+  <!-- Banner Slider -->
+  <div class="slider" aria-label="Banner Slider">
+    <div class="slides" id="slides">
+      <img src="banner1.png" alt="Banner 1" />
+      <img src="banner2.png" alt="Banner 2" />
+      <img src="banner3.png" alt="Banner 3" />
+    </div>
+    <div class="slider-buttons">
+      <button id="prevBtn" aria-label="Previous Slide">&#10094;</button>
+      <button id="nextBtn" aria-label="Next Slide">&#10095;</button>
+    </div>
+    <div class="slider-indicators" id="indicators">
+      <button class="indicator active" data-slide="0"></button>
+      <button class="indicator" data-slide="1"></button>
+      <button class="indicator" data-slide="2"></button>
+    </div>
+  </div>
 
-      <div class="slide">
-        <img src="gelang1.png" alt="Banner 1">
-        <div class="overlay">
-          <div class="overlay-content">
-            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
-            <h1>Luxury Jewelry<br>for Every Moment</h1>
-            <p>Temukan koleksi perhiasan elegan dengan sentuhan modern untuk melengkapi gayamu.</p>
-            <a href="#collection" class="hero-btn">EXPLORE COLLECTION</a>
+  <!-- Products Section -->
+  <section class="products" aria-label="Product List">
+    <h2>Our Products</h2>
+    <div class="product-list" id="productList">
+      <!-- Produk akan muncul di sini -->
+    </div>
+  </section>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-overlay" id="cartOverlay" aria-label="Shopping Cart" aria-hidden="true">
+    <div class="cart-header">
+      Keranjang Belanja
+      <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Cart">&times;</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+      <p class="cart-empty">Keranjang kosong.</p>
+      <ul class="cart-list" id="cartList"></ul>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total" id="cartTotal">Total: Rp0</div>
+      <button class="checkout-btn" id="checkoutBtn">Checkout via WhatsApp</button>
+    </div>
+  </aside>
+
+  <script>
+    // Data produk contoh sesuai kategori
+    const productsData = {
+      ring: [{
+          id: 1,
+          name: 'Golden Ring',
+          img: 'ring1.png',
+          priceOld: 100000,
+          priceNew: 50000,
+          whatsappMsg: 'Saya tertarik dengan Golden Ring'
+        },
+        {
+          id: 2,
+          name: 'Silver Ring',
+          img: 'ring2.png',
+          priceOld: 120000,
+          priceNew: 60000,
+          whatsappMsg: 'Saya tertarik dengan Silver Ring'
+        }
+      ],
+      necklace: [{
+        id: 3,
+        name: 'Elegant Necklace',
+        img: 'necklace1.png',
+        priceOld: 200000,
+        priceNew: 100000,
+        whatsappMsg: 'Saya tertarik dengan Elegant Necklace'
+      }],
+      earrings: [{
+        id: 4,
+        name: 'Star Earrings',
+        img: 'earrings1.png',
+        priceOld: 88000,
+        priceNew: 44000,
+        whatsappMsg: 'Saya tertarik dengan Star Earrings'
+      }],
+    };
+
+    // Gabungkan semua produk untuk kategori all
+    productsData.all = Object.values(productsData).flat();
+
+    // Keranjang sebagai object: key = productId, value = {product, qty}
+    let cart = {};
+
+    // Simpan dan load cart di localStorage supaya tersimpan walau reload page
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function loadCart() {
+      const saved = localStorage.getItem('cart');
+      if (saved) {
+        cart = JSON.parse(saved);
+      }
+    }
+
+    // Update angka counter cart di header
+    function updateCartCount() {
+      const countElement = document.getElementById('cartCount');
+      const count = Object.values(cart).reduce((acc, item) => acc + item.qty, 0);
+      countElement.textContent = count;
+      countElement.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    // Render produk di halaman berdasar kategori
+    function showProducts(category) {
+      const container = document.getElementById('productList');
+      container.innerHTML = '';
+      let list = [];
+
+      if (category === 'all') {
+        list = productsData.all;
+      } else {
+        list = productsData[category] || [];
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = '<p>Tidak ada produk di kategori ini.</p>';
+        return;
+      }
+
+      list.forEach(product => {
+        const productHtml = document.createElement('div');
+        productHtml.classList.add('product-item');
+        productHtml.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" />
+          <div class="product-name">${product.name}</div>
+          <div>
+            <span class="price-old">Rp${product.priceOld.toLocaleString('id-ID')}</span>
+            <span class="price-new">Rp${product.priceNew.toLocaleString('id-ID')}</span>
           </div>
-        </div>
-      </div>
+          <button class="cart-btn" data-id="${product.id}" aria-label="Tambah ${product.name} ke Keranjang">
+            Tambah ke Keranjang
+          </button>
+          <button class="order-btn" 
+            onclick="orderWhatsApp('${encodeURIComponent(product.whatsappMsg)}')" aria-label="Order ${product.name} via WhatsApp">
+            Order Now
+          </button>
+        `;
+        container.appendChild(productHtml);
+      });
 
-      <div class="slide">
-        <img src="gelang2.png" alt="Banner 2">
-        <div class="overlay">
-          <div class="overlay-content">
-            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
-            <h1>Elegant Details,<br>Timeless Beauty</h1>
-            <p>Perhiasan yang dibuat untuk memberi kesan mewah, simple, dan mudah dipadukan setiap hari.</p>
-            <a href="#collection" class="hero-btn">SHOP NOW</a>
+      // Tambah event listener tombol tambah ke cart
+      container.querySelectorAll('.cart-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          addToCart(id);
+        });
+      });
+    }
+
+    // Fungsi tambah produk ke cart
+    function addToCart(productId) {
+      // Cari produk di productsData.all
+      const product = productsData.all.find(p => p.id === productId);
+      if (!product) return;
+
+      if (cart[productId]) {
+        cart[productId].qty += 1;
+      } else {
+        cart[productId] = {
+          product,
+          qty: 1
+        };
+      }
+      saveCart();
+      updateCartCount();
+      alert(`"${product.name}" berhasil ditambahkan ke keranjang.`);
+    }
+
+    // Tampilkan item cart di sidebar
+    function renderCart() {
+      const cartList = document.getElementById('cartList');
+      const cartContent = document.getElementById('cartContent');
+      cartList.innerHTML = '';
+
+      const items = Object.values(cart);
+
+      // Jika cart kosong
+      if (items.length === 0) {
+        cartContent.querySelector('.cart-empty').style.display = 'block';
+        cartList.style.display = 'none';
+        document.getElementById('cartTotal').textContent = 'Total: Rp0';
+        document.getElementById('checkoutBtn').disabled = true;
+        return;
+      } else {
+        cartContent.querySelector('.cart-empty').style.display = 'none';
+        cartList.style.display = 'block';
+        document.getElementById('checkoutBtn').disabled = false;
+      }
+
+      let total = 0;
+      items.forEach(({ product, qty }) => {
+        const subTotal = product.priceNew * qty;
+        total += subTotal;
+
+        const li = document.createElement('li');
+        li.classList.add('cart-item');
+        li.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" />
+          <div class="cart-item-info">
+            <div class="cart-item-name">${product.name}</div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" data-id="${product.id}" data-op="dec" aria-label="Kurangi jumlah">-</button>
+              <span>${qty}</span>
+              <button class="qty-btn" data-id="${product.id}" data-op="inc" aria-label="Tambah jumlah">+</button>
+            </div>
+            <div class="cart-item-price">Rp${subTotal.toLocaleString('id-ID')}</div>
           </div>
-        </div>
-      </div>
+          <div class="cart-item-remove" data-id="${product.id}" title="Hapus item">&times;</div>
+        `;
+        cartList.appendChild(li);
+      });
 
-      <div class="slide">
-        <img src="gelang3.png" alt="Banner 3">
-        <div class="overlay">
-          <div class="overlay-content">
-            <img src="logo.png" alt="Blingg.id" class="overlay-logo">
-            <h1>Crafted to Shine<br>With You</h1>
-            <p>Pilih koleksi favoritmu dan buat setiap penampilan terasa lebih spesial bersama Blingg.id.</p>
-            <a href="#collection" class="hero-btn">DISCOVER MORE</a>
-          </div>
-        </div>
-      </div>
+      document.getElementById('cartTotal').textContent = `Total: Rp${total.toLocaleString('id-ID')}`;
 
-    </div>
+      // Event qty buttons
+      cartList.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          const op = btn.dataset.op;
+          updateQty(id, op);
+        });
+      });
 
-    <div class="dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-  </section>
+      // Event remove item
+      cartList.querySelectorAll('.cart-item-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          removeItem(id);
+        });
+      });
+    }
 
-  <section class="section-title" id="collection">
-    <h2>Our Collection</h2>
-    <p>Handpicked pieces for a refined and timeless style.</p>
-  </section>
+    // Fungsi ubah jumlah qty di cart
+    function updateQty(productId, operation) {
+      if (!cart[productId]) return;
 
-  <section class="products-section">
-    <div class="container">
+      if (operation === 'inc') {
+        cart[productId].qty += 1;
+      } else if (operation === 'dec') {
+        cart[productId].qty -= 1;
+        if (cart[productId].qty <= 0) {
+          delete cart[productId];
+        }
+      }
 
-      <div class="product">
-        <img src="gelang1.png" alt="Gelang Lepidolite">
-        <h3>Gelang Lepidolite</h3>
-        <div class="old-price">Rp149.000</div>
-        <div class="price">Rp118.000</div>
-        <div class="product-buttons">
-          <a href="https://wa.me/6285810502352?text=Halo%20saya%20ingin%20order%20Gelang%20Lepidolite" class="btn-primary" target="_blank">Order Sekarang</a>
-          <a href="#" class="btn-secondary">Product Info</a>
-        </div>
-      </div>
+      saveCart();
+      updateCartCount();
+      renderCart();
+    }
 
-      <div class="product">
-        <img src="gelang2.png" alt="Gelang Pink Red">
-        <h3>Gelang Pink Red</h3>
-        <div class="old-price">Rp69.000</div>
-        <div class="price">Rp40.000</div>
-        <div class="product-buttons">
-          <a href="https://wa.me/6285810502352?text=Halo%20saya%20ingin%20order%20Gelang%20Pink%20Red" class="btn-primary" target="_blank">Order Sekarang</a>
-          <a href="#" class="btn-secondary">Product Info</a>
-        </div>
-      </div>
+    // Fungsi hapus item
+    function removeItem(productId) {
+      if (cart[productId]) {
+        const confirmDel = confirm('Apakah Anda yakin ingin menghapus barang ini dari keranjang?');
+        if (confirmDel) {
+          delete cart[productId];
+          saveCart();
+          updateCartCount();
+          renderCart();
+        }
+      }
+    }
 
-      <div class="product">
-        <img src="gelang3.png" alt="Gelang Black Gold">
-        <h3>Gelang Black Gold</h3>
-        <div class="old-price">Rp79.000</div>
-        <div class="price">Rp50.000</div>
-        <div class="product-buttons">
-          <a href="https://wa.me/6285810502352?text=Halo%20saya%20ingin%20order%20Gelang%20Black%20Gold" class="btn-primary" target="_blank">Order Sekarang</a>
-          <a href="#" class="btn-secondary">Product Info</a>
-        </div>
-      </div>
+    // Fungsi checkout via WhatsApp dengan list barang
+    function checkoutWhatsApp() {
+      const phoneNumber = '6281234567890'; // Ganti dengan nomor WA kamu (format internasional tanpa +)
+      if (Object.keys(cart).length === 0) {
+        alert('Keranjang kosong!');
+        return;
+      }
 
-    </div>
-  </section>
+      let message = 'Halo, saya ingin memesan produk berikut:%0A';
+      let total = 0;
 
-  <section class="info-strip" id="about">
-    <div class="info-box">
-      <h3>Blingg.id</h3>
-      <p>
-        Blingg.id hadir untuk menghadirkan perhiasan yang cantik, modern, dan mudah dipadukan untuk berbagai gaya.
-        Setiap koleksi dipilih untuk memberi sentuhan elegan yang simple namun tetap berkesan.
-      </p>
-    </div>
-  </section>
+      for (const item of Object.values(cart)) {
+        message += `- ${item.product.name} (x${item.qty}): Rp${(item.product.priceNew * item.qty).toLocaleString('id-ID')}\n`;
+        total += item.product.priceNew * item.qty;
+      }
+      message += `%0ATotal harga: Rp${total.toLocaleString('id-ID')}`;
 
-  <footer class="footer" id="footer">
-    © 2026 Blingg.id — All Rights Reserved
-  </footer>
+      const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    // Event tombol order WhatsApp single product
+    function orderWhatsApp(message) {
+      const phoneNumber = '6281234567890'; // Ganti nomor WA
+      const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(waUrl, '_blank');
+    }
+
+    // Event kategori menu
+    document.querySelectorAll('.category-menu').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const cat = el.dataset.category || 'all';
+        showProducts(cat);
+      });
+    });
+
+    // Slider Banner Manual
+    const slides = document.getElementById('slides');
+    const indicators = document.querySelectorAll('.indicator');
+    const totalSlides = indicators.length;
+    let slideIndex = 0;
+
+    function updateSlider() {
+      slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+      indicators.forEach(btn => btn.classList.remove('active'));
+      indicators[slideIndex].classList.add('active');
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      updateSlider();
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    });
+    indicators.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        slideIndex = idx;
+        updateSlider();
+      });
+    });
+
+    // Cart sidebar open/close
+    const cartIcon = document.getElementById('cartIcon');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartCloseBtn = document.getElementById('cartCloseBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    cartIcon.addEventListener('click', () => {
+      cartOverlay.classList.add('open');
+      cartOverlay.setAttribute('aria-hidden', 'false');
+      renderCart();
+    });
+
+    cartIcon.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        cartIcon.click();
+      }
+    });
+
+    cartCloseBtn.addEventListener('click', () => {
+      cartOverlay.classList.remove('open');
+      cartOverlay.setAttribute('aria-hidden', 'true');
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      checkoutWhatsApp();
+    });
+
+    // Load cart from localStorage saat mulai
+    loadCart();
+    updateCartCount();
+
+    // Tampilkan semua produk saat load awal
+    showProducts('all');
+  </script>
 
 </body>
+
 </html>
