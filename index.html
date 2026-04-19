@@ -536,28 +536,28 @@
     const productsData = {
       ring: [{
           id: 1,
-          name: 'Golden Ring',
-          img: 'ring1.png',
+          name: 'Mickey Gold',
+          img: 'gelang1.png',
           priceOld: 100000,
           priceNew: 50000,
-          whatsappMsg: 'Saya tertarik dengan Golden Ring'
+          whatsappMsg: 'Saya tertarik dengan Mickey Gold'
         },
         {
           id: 2,
-          name: 'Silver Ring',
-          img: 'ring2.png',
+          name: 'Heart Gold',
+          img: 'gelang2.png',
           priceOld: 120000,
           priceNew: 60000,
-          whatsappMsg: 'Saya tertarik dengan Silver Ring'
+          whatsappMsg: 'Saya tertarik dengan Heart Gold'
         }
       ],
       necklace: [{
         id: 3,
-        name: 'Elegant Necklace',
-        img: 'necklace1.png',
+        name: 'Endless Heart Love',
+        img: 'gelang3.png',
         priceOld: 200000,
         priceNew: 100000,
-        whatsappMsg: 'Saya tertarik dengan Elegant Necklace'
+        whatsappMsg: 'Saya tertarik dengan Endless Heart Love'
       }],
       earrings: [{
         id: 4,
@@ -758,7 +758,7 @@
 
     // Fungsi checkout via WhatsApp dengan list barang
     function checkoutWhatsApp() {
-      const phoneNumber = '6281234567890'; // Ganti dengan nomor WA kamu (format internasional tanpa +)
+      const phoneNumber = '6285810502352'; // Ganti dengan nomor WA kamu (format internasional tanpa +)
       if (Object.keys(cart).length === 0) {
         alert('Keranjang kosong!');
         return;
@@ -779,7 +779,7 @@
 
     // Event tombol order WhatsApp single product
     function orderWhatsApp(message) {
-      const phoneNumber = '6281234567890'; // Ganti nomor WA
+      const phoneNumber = '6285810502352'; // Ganti nomor WA
       const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
       window.open(waUrl, '_blank');
     }
